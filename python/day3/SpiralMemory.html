@@ -11773,50 +11773,95 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[158]:</div>
+<div class="prompt input_prompt">In&nbsp;[685]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># http://adventofcode.com/2017/day/3</span>
 
 <span class="n">i</span> <span class="o">=</span> <span class="mi">368078</span>
 
-<span class="c1"># Part 1</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="k">def</span> <span class="nf">make_spiral</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="c1"># Part 1</span>
+<span class="k">def</span> <span class="nf">make_spiral</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nrow</span><span class="o">*</span><span class="n">ncol</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">))</span>
     <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">while</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
         <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">out</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">make_index_spiral</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">make_spiral</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nrow</span><span class="o">*</span><span class="n">ncol</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">))</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">i</span>
+<span class="n">ii</span> <span class="o">=</span> <span class="n">i</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">is_integer</span><span class="p">()</span> <span class="ow">and</span> <span class="n">x</span><span class="o">%</span><span class="k">2</span> is not 0:
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span><span class="o">.</span><span class="n">is_integer</span><span class="p">()</span> <span class="ow">and</span> <span class="n">ii</span><span class="o">%</span><span class="k">2</span> is not 0:
         <span class="k">break</span>
-    <span class="k">if</span> <span class="n">x</span><span class="o">%</span><span class="k">2</span> is 0:
-        <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">ii</span><span class="o">%</span><span class="k">2</span> is 0:
+        <span class="n">ii</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">+=</span> <span class="mi">2</span>
+        <span class="n">ii</span> <span class="o">+=</span> <span class="mi">2</span>
     
-<span class="n">array_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="n">array_y</span> <span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">array_x</span><span class="p">,</span><span class="n">array_y</span><span class="p">)</span>
+<span class="n">array_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ii</span><span class="p">))</span>
+<span class="n">array_y</span> <span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ii</span><span class="p">))</span>
+<span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">array_x</span><span class="p">,</span><span class="n">array_y</span><span class="p">)</span>
 
 <span class="n">spiral</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
-<span class="n">spiral</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">make_index_spiral</span><span class="p">(</span><span class="o">*</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)]</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">flat</span>
+<span class="n">spiral</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">make_spiral</span><span class="p">(</span><span class="o">*</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)]</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">flat</span>
 <span class="n">spiral</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">spiral</span><span class="p">))</span>
 
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">spiral</span><span class="p">)):</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">spiral</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span>
-        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">spiral</span><span class="p">[</span><span class="n">x</span><span class="p">])):</span>
-            <span class="k">if</span> <span class="n">spiral</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
-                <span class="n">distance</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">array_x</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">array_y</span><span class="o">/</span><span class="mi">2</span><span class="p">))))</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">spiral</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">spiral</span><span class="p">[</span><span class="n">r</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">spiral</span><span class="p">[</span><span class="n">r</span><span class="p">])):</span>
+            <span class="k">if</span> <span class="n">spiral</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">distance</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">array_x</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">array_y</span><span class="o">/</span><span class="mi">2</span><span class="p">))))</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distance to access port:&quot;</span><span class="p">,</span> <span class="n">distance</span><span class="p">)</span>
+                
+<span class="c1"># Part 2</span>
+<span class="k">def</span> <span class="nf">neighbors_of</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+    <span class="n">neighbors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="p">))</span>
+    <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="p">))</span>
+    <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">neighbors</span>
+
+<span class="n">xsize</span> <span class="o">=</span> <span class="mi">169</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">xsize</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">xsize</span><span class="p">)),</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">xsize</span><span class="p">)))</span>
+<span class="n">xspiral</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">xspiral</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">make_spiral</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)]</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flat</span>
+<span class="n">xspiral</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">xspiral</span><span class="p">))</span>
+
+<span class="n">positions</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">xspiral</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">xspiral</span><span class="p">[</span><span class="n">r</span><span class="p">])):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">xspiral</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span>
+        <span class="n">positions</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">),</span> <span class="p">[])</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">neighbors_of</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+            <span class="n">positions</span><span class="p">[</span><span class="n">value</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">xspiral</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">xsize</span><span class="p">):</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">ii</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">xspiral</span><span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">neighbor_sum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">n_value</span> <span class="o">=</span> <span class="n">xspiral</span><span class="p">[</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+                    <span class="k">if</span> <span class="n">n_value</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">neighbor_sum</span> <span class="o">+=</span> <span class="n">n_value</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">pass</span>
+        <span class="n">xspiral</span><span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">neighbor_sum</span>
+    <span class="k">if</span> <span class="n">xspiral</span><span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">&gt;</span> <span class="n">i</span><span class="p">:</span>
+        <span class="n">igreater</span> <span class="o">=</span> <span class="n">xspiral</span><span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First greater value:&quot;</span><span class="p">,</span> <span class="n">igreater</span><span class="p">)</span>
+        <span class="k">break</span>
 </pre></div>
 
 </div>
@@ -11834,6 +11879,7 @@ div#notebook {
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Distance to access port: 371
+First greater value: 369601
 </pre>
 </div>
 </div>
